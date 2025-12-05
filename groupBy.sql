@@ -1,22 +1,29 @@
-SELECT * from students;
-SELECT country, count(*), avg(age) from students 
-    GROUP BY country;
-SELECT country, avg(age) from students 
-    GROUP BY country
-       HAVING  avg(age) > 20.60
-    ;
+-- View all students
+SELECT * 
+FROM students;
 
+-- Count of students and average age by country
+SELECT 
+    country, 
+    COUNT(*) AS student_count, 
+    AVG(age) AS avg_age
+FROM students
+GROUP BY country
+ORDER BY country;
 
+-- Filter groups using HAVING: Only countries with average age above 20.60
+SELECT 
+    country, 
+    AVG(age) AS avg_age
+FROM students
+GROUP BY country
+HAVING AVG(age) > 20.60
+ORDER BY avg_age DESC;
 
-
--- Filter Groups Using HAVING to Show Only Countries with Average Age Above 20.60
-SELECT country, avg(age) from students 
-    GROUP BY country
-       HAVING  avg(age) > 20.60
-    ;
-
-
--- Count Students Born in Each Year
-SELECT extract(year from dob) as birth_year, count(*)
-    FROM students
-    GROUP BY birth_year
+-- Count of students born in each year
+SELECT 
+    EXTRACT(YEAR FROM dob) AS birth_year, 
+    COUNT(*) AS num_students
+FROM students
+GROUP BY birth_year
+ORDER BY birth_year;
